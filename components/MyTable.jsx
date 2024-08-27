@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { FaEllipsisV } from 'react-icons/fa'; // Import the three-dot icon
+import { FaEllipsisV } from 'react-icons/fa';
 
 const MyTable = ({ data, darkMode = false, onRowClick, renderCell }) => {
   const [expandedEmailRows, setExpandedEmailRows] = useState({});
 
-  // Extract unique headings from data
   const extractHeadings = () => {
     if (data.length === 0) return [];
     const firstRow = data[0];
-    return Object.keys(firstRow); // Use keys of the first object to determine headings
+    return Object.keys(firstRow);
   };
 
   const handleEmailClick = (e, rowIndex) => {
-    e.stopPropagation(); // Prevent click event from bubbling up
+    e.stopPropagation();
     setExpandedEmailRows((prev) => ({
       ...prev,
       [rowIndex]: !prev[rowIndex],
     }));
   };
 
-  // Generate table headings dynamically
   const headings = extractHeadings();
 
   return (
@@ -63,12 +61,12 @@ const MyTable = ({ data, darkMode = false, onRowClick, renderCell }) => {
                       padding: '10px',
                       borderBottom: darkMode ? '2px solid #000000' : '1px solid #e2e8f0',
                       color: darkMode ? '#cbd5e0' : '#2d3748',
-                      position: 'relative', // Position relative for the three-dot icon
-                      whiteSpace: 'nowrap', // Prevent text from wrapping
-                      textOverflow: 'ellipsis', // Show ellipsis for overflowing text
+                      position: 'relative',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
                     }}
                   >
-                    {heading === 'emails' && Array.isArray(cellValue) && cellValue.length > 1 ? (
+                    {Array.isArray(cellValue) && cellValue.length > 1 ? (
                       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                         <span style={{ marginRight: '24px' }}>{cellValue[0]}</span>
                         <FaEllipsisV
@@ -93,13 +91,11 @@ const MyTable = ({ data, darkMode = false, onRowClick, renderCell }) => {
                             padding: '10px',
                             borderRadius: '4px',
                             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                            zIndex: 100, // Ensure dropdown is above other content
+                            zIndex: 100,
                             display: 'flex',
                             flexDirection: 'column',
-                            maxHeight: '',
                             overflowY: 'auto',
-                            width: '',
-                            marginTop: '2px', // Adjust margin to ensure dropdown is visible
+                            marginTop: '2px',
                           }}>
                             {cellValue.slice(1).map((email, index) => (
                               <div key={index} style={{ padding: '5px 0' }}>
